@@ -33,11 +33,13 @@ class MagicLineMenu extends Component<Props> {
   };
 
   componentDidMount() {
-    this.setMenuValues();
+    setTimeout(() => {
+      this.setMenuValues();
 
-    this.setItemValues();
+      this.setItemValues();
 
-    this.setLineStyle();
+      this.setLineStyle();
+    }, 0);
   }
 
   componentWillReceiveProps(nextProps: Props) {
