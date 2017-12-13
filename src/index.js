@@ -8,6 +8,14 @@ type Props = {
   children: React$Node,
   active: number,
   onItemClick: Function,
+  menuStyle?: Object,
+  lineStyle?: Object,
+  menuClassName?: string,
+  lineClassName?: string,
+  lineHeight?: number,
+  lineColor?: string,
+  duration?: number,
+  easing?: string,
 };
 
 type Value = {|
@@ -125,8 +133,8 @@ class MagicLineMenu extends Component<Props> {
   ) => {
     animate({
       elements: this.lineNode,
-      duration: 500,
-      easing: 'linear',
+      duration: this.props.duration || 500,
+      easing: this.props.easing || 'linear',
       transform: [
         `translateX(${defaultTranslateX}px) scaleX(${defaultScaleX})`,
         `translateX(${defaultTranslateX}px) scaleX(${startScaleX})`,
@@ -147,12 +155,24 @@ class MagicLineMenu extends Component<Props> {
   itemValues: Value[] = [];
 
   render() {
+    const {
+      children,
+      onItemClick,
+      menuStyle,
+      lineStyle,
+      menuClassName,
+      lineClassName,
+      lineHeight,
+      lineColor,
+    } = this.props;
+
     return (
       <div
         ref={node => {
           if (node) this.menuNode = node;
         }}
-        style={{ display: 'flex', position: 'relative' }}
+        style={{ display: 'flex', position: 'relative', ...menuStyle }}
+        className={menuClassName}
       >
         <div
           ref={node => {
@@ -165,11 +185,13 @@ class MagicLineMenu extends Component<Props> {
             left: 0,
             right: 0,
             transformOrigin: '0% 50% 0',
-            borderBottom: '2px solid grey',
+            borderBottom: `${lineHeight || 2}px solid ${lineColor || 'grey'}`,
+            ...lineStyle,
           }}
+          className={lineClassName}
         />
-        {Children.map(this.props.children, (child, index) =>
-          cloneElement(child, { onClick: () => this.props.onItemClick(index) })
+        {Children.map(children, (child, index) =>
+          cloneElement(child, { onClick: () => onItemClick(index) })
         )}
       </div>
     );
