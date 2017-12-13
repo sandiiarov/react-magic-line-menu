@@ -2,16 +2,6 @@ const first = ([item]) => item;
 
 const isFunction = operand => typeof operand === 'function';
 
-const getElements = elements => {
-  if (Array.isArray(elements)) return elements;
-  if (!elements || elements.nodeType) return [elements];
-  return Array.from(
-    typeof elements === 'string'
-      ? document.querySelectorAll(elements)
-      : elements
-  );
-};
-
 const accelerate = (element, keyframes) =>
   (element.style.willChange = keyframes
     ? keyframes.map(({ property }) => property).join()
@@ -187,7 +177,7 @@ const setSpeed = (speed, value, index) =>
 
 const addAnimations = (options, resolve) => {
   const {
-    elements = null,
+    elements: element = null,
     easing = 'out-elastic',
     duration = 1000,
     delay: timeout = 0,
@@ -203,34 +193,32 @@ const addAnimations = (options, resolve) => {
     totalDuration: -1,
   };
 
-  getElements(elements).forEach(async (element, index) => {
-    const keyframes = createAnimationKeyframes(rest, index);
-    const animation = {
-      element,
-      keyframes,
-      loop,
-      optimize,
-      direction,
-      change,
-      easing: decomposeEasing(easing),
-      duration: setSpeed(speed, duration, index),
-    };
+  const keyframes = createAnimationKeyframes(rest, 0);
 
-    const animationTimeout = setSpeed(speed, timeout, index);
-    const totalDuration = animationTimeout + animation.duration;
+  const anim = {
+    element,
+    keyframes,
+    loop,
+    optimize,
+    direction,
+    change,
+    easing: decomposeEasing(easing),
+    duration: setSpeed(speed, duration, 0),
+  };
 
-    if (direction != 'normal') reverseKeyframes(keyframes);
+  const animationTimeout = setSpeed(speed, timeout, 0);
+  const totalDuration = animationTimeout + anim.duration;
 
-    if (optimize) accelerate(element, keyframes);
+  if (direction != 'normal') reverseKeyframes(keyframes);
 
-    if (totalDuration > last.totalDuration) {
-      last.animation = animation;
-      last.totalDuration = totalDuration;
-    }
+  if (optimize) accelerate(element, keyframes);
 
-    if (animationTimeout) await delay(animationTimeout);
-    rAF.add(animation);
-  });
+  if (totalDuration > last.totalDuration) {
+    last.animation = anim;
+    last.totalDuration = totalDuration;
+  }
+
+  rAF.add(anim);
 
   const { animation } = last;
   if (!animation) return;
