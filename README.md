@@ -1,18 +1,6 @@
 # React Magic Line Menu
 
-## Test
-
-Run tests
-
-```sh
-$ npm run test
-```
-
-To run the tests in watch mode use
-
-```sh
-$ npm run test:watch
-```
+[![codecov](https://codecov.io/gh/sandiiarov/react-magic-line-menu/branch/feature%2Finit/graph/badge.svg)](https://codecov.io/gh/sandiiarov/react-magic-line-menu)
 
 ## Storybook
 
