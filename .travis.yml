@@ -10,7 +10,6 @@ before_script:
   - npm install -g codecov
   - npm install -g semantic-release
 script:
-  - npm run test
   - npm run lint
   - npm run flow
 after_success:
