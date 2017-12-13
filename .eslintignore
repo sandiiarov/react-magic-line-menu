@@ -1,0 +1,4 @@
+flow-typed/**/*.js
+lib/
+dist/
+docs/

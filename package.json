@@ -26,7 +26,6 @@
       "flow-copy-source -v -i \"{**/test/*.js,**/*.test.js}\" src lib",
     "build:docs":
       "cross-env NODE_ENV=production webpack --config=\"docs-builder/webpack.config.prod.js\"",
-
     "lint": "eslint src",
     "flow": "flow check && flow-coverage-report -i \"src/**/!(*.test).js\"",
     "precommit": "lint-staged",
@@ -88,8 +87,8 @@
     "rollup-plugin-json": "^2.3.0",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-replace": "^2.0.0",
+    "semantic-release": "^8.2.0",
     "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.9.7",
-    "semantic-release": "^8.2.0"
+    "webpack-dev-server": "^2.9.7"
   }
 }
