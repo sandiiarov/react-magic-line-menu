@@ -1,6 +1,6 @@
 {
   "name": "react-magic-line-menu",
-  "version": "0.0.0-development",
+  "version": "0.0.0-semantically-released",
   "engines": {
     "node": ">=8.0.0"
   },
@@ -14,19 +14,25 @@
   },
   "scripts": {
     "start": "npm run docs:dev",
-    "docs:dev": "cross-env NODE_ENV=development webpack-dev-server --config=\"docs-builder/webpack.config.dev.js\"",
-    "build": "npm run build:lib && npm run build:dist && npm run build:flow && npm run build:docs",
+    "docs:dev":
+      "cross-env NODE_ENV=development webpack-dev-server --config=\"docs-builder/webpack.config.dev.js\"",
+    "build":
+      "npm run build:lib && npm run build:dist && npm run build:flow && npm run build:docs",
     "prebuild:lib": "rimraf lib/*",
     "prebuild:dist": "rimraf dist/*",
     "build:lib": "babel --out-dir lib src",
-    "build:dist": "rollup -c && rollup -c --environment ESBUNDLE && rollup -c --environment PRODUCTION",
-    "build:flow": "flow-copy-source -v -i \"{**/test/*.js,**/*.test.js}\" src lib",
-    "build:docs": "cross-env NODE_ENV=production webpack --config=\"docs-builder/webpack.config.prod.js\"",
+    "build:dist":
+      "rollup -c && rollup -c --environment ESBUNDLE && rollup -c --environment PRODUCTION",
+    "build:flow":
+      "flow-copy-source -v -i \"{**/test/*.js,**/*.test.js}\" src lib",
+    "build:docs":
+      "cross-env NODE_ENV=production webpack --config=\"docs-builder/webpack.config.prod.js\"",
     "lint": "eslint src",
     "flow": "flow check && flow-coverage-report -i \"src/**/!(*.test).js\"",
     "commit": "git-cz",
     "precommit": "lint-staged",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "semantic-release":
+      "semantic-release pre && npm publish && semantic-release post",
     "prepare": "npm run build"
   },
   "repository": {
@@ -34,10 +40,7 @@
     "url": "https://github.com/sandiiarov/react-magic-line-menu.git"
   },
   "lint-staged": {
-    "*.js": [
-      "prettier-eslint --write \"src/**/*.js\"",
-      "git add"
-    ]
+    "*.js": ["prettier-eslint --write \"src/**/*.js\"", "git add"]
   },
   "czConfig": {
     "path": "cz-conventional-changelog"
