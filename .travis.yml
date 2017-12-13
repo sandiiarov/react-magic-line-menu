@@ -7,8 +7,8 @@ notifications:
 node_js:
   - '8'
 before_script:
-  - npm istall -g codecov
-  - npm istall -g semantic-release
+  - npm install -g codecov
+  - npm install -g semantic-release
 script:
   - npm run test
   - npm run lint
@@ -18,7 +18,7 @@ after_success:
 deploy:
   provider: pages
   skip_cleanup: true
-  github_token: $GITHUB_TOKEN
+  github_token: $GH_TOKEN
   local_dir: 'docs'
   on:
     branch: master
