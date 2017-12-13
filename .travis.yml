@@ -1,0 +1,27 @@
+language: node_js
+cache:
+  directories:
+    - ~/.npm
+notifications:
+  email: false
+node_js:
+  - '8'
+before_script:
+  - npm istall -g codecov
+  - npm istall -g semantic-release
+script:
+  - npm run test
+  - npm run lint
+  - npm run flow
+after_success:
+  - npm run semantic-release
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: 'docs'
+  on:
+    branch: master
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/

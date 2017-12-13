@@ -1,0 +1,95 @@
+{
+  "name": "react-magic-line-menu",
+  "version": "0.0.0-development",
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "description": "React Magic Line Menu",
+  "main": "src/index.js",
+  "module": "dist/react-magic-line-menu.es.js",
+  "license": "MIT",
+  "author": {
+    "name": "Alex Sandiiarov."
+  },
+  "scripts": {
+    "start": "npm run docs:dev",
+    "docs:dev":
+      "cross-env NODE_ENV=development webpack-dev-server --config=\"docs-builder/webpack.config.dev.js\"",
+    "build":
+      "npm run build:lib && npm run build:dist && npm run build:flow && npm run build:docs",
+    "prebuild:lib": "rimraf lib/*",
+    "prebuild:dist": "rimraf dist/*",
+    "build:lib": "babel --out-dir lib src",
+    "build:dist":
+      "rollup -c && rollup -c --environment ESBUNDLE && rollup -c --environment PRODUCTION",
+    "build:flow":
+      "flow-copy-source -v -i \"{**/test/*.js,**/*.test.js}\" src lib",
+    "build:docs":
+      "cross-env NODE_ENV=production webpack --config=\"docs-builder/webpack.config.prod.js\"",
+
+    "lint": "eslint src",
+    "flow": "flow check && flow-coverage-report -i \"src/**/!(*.test).js\"",
+    "precommit": "lint-staged",
+    "semantic-release":
+      "semantic-release pre && npm publish && semantic-release post",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sandiiarov/react-magic-line-menu.git"
+  },
+  "lint-staged": {
+    "*.js": ["prettier-eslint --write \"src/**/*.js\"", "git add"]
+  },
+  "peerDependencies": {
+    "react": ">=15.3"
+  },
+  "dependencies": {
+    "animateplus": "^2.0.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.34",
+    "@babel/core": "^7.0.0-beta.34",
+    "@babel/preset-env": "^7.0.0-beta.34",
+    "@babel/preset-flow": "^7.0.0-beta.34",
+    "@babel/preset-react": "^7.0.0-beta.34",
+    "@babel/preset-stage-1": "^7.0.0-beta.34",
+    "babel-eslint": "^8.0.3",
+    "babel-loader": "^8.0.0-beta.0",
+    "babel-minify-webpack-plugin": "^0.2.0",
+    "clean-webpack-plugin": "^0.1.17",
+    "cross-env": "^5.1.1",
+    "eslint": "^4.13.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-flowtype": "^2.39.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-prettier": "^2.3.1",
+    "eslint-plugin-react": "^7.5.1",
+    "flow-bin": "^0.61.0",
+    "flow-copy-source": "^1.2.1",
+    "flow-coverage-report": "^0.4.0",
+    "flow-typed": "^2.2.3",
+    "html-webpack-plugin": "^2.30.1",
+    "husky": "^0.14.3",
+    "lint-staged": "^6.0.0",
+    "prettier": "^1.9.1",
+    "prettier-eslint-cli": "^4.4.2",
+    "rimraf": "^2.6.2",
+    "rollup": "^0.52.1",
+    "rollup-plugin-babel": "^4.0.0-beta.0",
+    "rollup-plugin-babel-minify": "^3.1.2",
+    "rollup-plugin-commonjs": "^8.2.6",
+    "rollup-plugin-flow": "^1.1.1",
+    "rollup-plugin-inject": "^2.0.0",
+    "rollup-plugin-json": "^2.3.0",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-replace": "^2.0.0",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.9.7",
+    "semantic-release": "^8.2.0"
+  }
+}

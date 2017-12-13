@@ -1,0 +1,17 @@
+{
+  "presets": [
+    [
+      "@babel/env",
+      {
+        "targets": {
+          "node": "8.9.0"
+        },
+        "loose": true,
+        "modules": false
+      }
+    ],
+    "@babel/preset-stage-1",
+    "@babel/react",
+    "@babel/flow"
+  ]
+}
