@@ -4,6 +4,27 @@ import React, { Component, Children, cloneElement } from 'react';
 import type { ElementRef } from 'react';
 import animate from 'animateplus';
 
+type Easing =
+  | 'linear'
+  | 'in-cubic'
+  | 'out-cubic'
+  | 'in-out-cubic'
+  | 'in-quartic'
+  | 'out-quartic'
+  | 'in-out-quartic'
+  | 'in-quintic'
+  | 'out-quintic'
+  | 'in-out-quintic'
+  | 'in-exponential'
+  | 'out-exponential'
+  | 'in-out-exponential'
+  | 'in-circular'
+  | 'out-circular'
+  | 'in-out-circular'
+  | 'in-elastic'
+  | 'out-elastic'
+  | 'in-out-elastic';
+
 type Props = {
   children: React$Node,
   active: number,
@@ -15,7 +36,7 @@ type Props = {
   lineHeight?: number,
   lineColor?: string,
   duration?: number,
-  easing?: string,
+  easing?: Easing,
 };
 
 type Value = {|
@@ -133,7 +154,7 @@ class MagicLineMenu extends Component<Props> {
   ) => {
     animate({
       elements: this.lineNode,
-      duration: this.props.duration || 500,
+      duration: (this.props.duration || 500) / 2,
       easing: this.props.easing || 'linear',
       transform: [
         `translateX(${defaultTranslateX}px) scaleX(${defaultScaleX})`,
@@ -171,7 +192,11 @@ class MagicLineMenu extends Component<Props> {
         ref={node => {
           if (node) this.menuNode = node;
         }}
-        style={{ display: 'flex', position: 'relative', ...menuStyle }}
+        style={{
+          display: 'flex',
+          position: 'relative',
+          ...menuStyle,
+        }}
         className={menuClassName}
       >
         <div
@@ -185,7 +210,7 @@ class MagicLineMenu extends Component<Props> {
             left: 0,
             right: 0,
             transformOrigin: '0% 50% 0',
-            borderBottom: `${lineHeight || 2}px solid ${lineColor || 'grey'}`,
+            borderBottom: `${lineHeight || 1}px solid ${lineColor || 'black'}`,
             ...lineStyle,
           }}
           className={lineClassName}
