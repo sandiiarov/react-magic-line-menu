@@ -5,7 +5,8 @@
     "node": ">=8.0.0"
   },
   "description": "React Magic Line Menu",
-  "main": "src/index.js",
+  "main": "lib/index.js",
+  "jsnext:main": "dist/react-magic-line-menu.es.js",
   "module": "dist/react-magic-line-menu.es.js",
   "license": "MIT",
   "author": {
