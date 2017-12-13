@@ -2,28 +2,7 @@
 
 import React, { Component, Children, cloneElement } from 'react';
 import type { ElementRef } from 'react';
-import animate from 'animateplus';
-
-type Easing =
-  | 'linear'
-  | 'in-cubic'
-  | 'out-cubic'
-  | 'in-out-cubic'
-  | 'in-quartic'
-  | 'out-quartic'
-  | 'in-out-quartic'
-  | 'in-quintic'
-  | 'out-quintic'
-  | 'in-out-quintic'
-  | 'in-exponential'
-  | 'out-exponential'
-  | 'in-out-exponential'
-  | 'in-circular'
-  | 'out-circular'
-  | 'in-out-circular'
-  | 'in-elastic'
-  | 'out-elastic'
-  | 'in-out-elastic';
+import animate from '../vendor/animateplus';
 
 type Props = {
   children: React$Node,
@@ -36,7 +15,7 @@ type Props = {
   lineHeight?: number,
   lineColor?: string,
   duration?: number,
-  easing?: Easing,
+  easing?: string,
 };
 
 type Value = {|
