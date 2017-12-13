@@ -42,8 +42,10 @@
   "lint-staged": {
     "*.js": ["prettier-eslint --write \"src/**/*.js\"", "git add"]
   },
-  "czConfig": {
-    "path": "cz-conventional-changelog"
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   },
   "peerDependencies": {
     "react": ">=15.3"
