@@ -20,7 +20,7 @@ import MagicLineMenu from 'react-magic-line-menu';
 <MagicLineMenu active={0} onItemClick={index => console.log(index)}>
   <div>Home</div>
   <div>Contacts</div>
-</MagicLineMenu>;
+</MagicLineMenu>
 ```
 
 ## Props
