@@ -1,7 +1,6 @@
 // @flow
 
 import React, { Component, Children, cloneElement } from 'react';
-import type { ElementRef } from 'react';
 import animate from '../vendor/animateplus';
 
 type Props = {
@@ -25,21 +24,19 @@ type Value = {|
 |};
 
 class MagicLineMenu extends Component<Props> {
-  menuNode: ElementRef<'div'>;
-  lineNode: ElementRef<'div'>;
+  menuNode: HTMLDivElement;
+  lineNode: HTMLDivElement;
 
   static defaultProps = {
     active: 0,
   };
 
   componentDidMount() {
-    setTimeout(() => {
-      this.setMenuValues();
+    this.setMenuValues();
 
-      this.setItemValues();
+    this.setItemValues();
 
-      this.setLineStyle();
-    }, 0);
+    this.setLineStyle();
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -122,8 +119,6 @@ class MagicLineMenu extends Component<Props> {
 
     this.lineNode.style.transform = `translateX(${l - left}px) scaleX(${w /
       width})`;
-
-    this.forceUpdate();
   };
 
   animateLine = (
