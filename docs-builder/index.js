@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
+// eslint-disable-next-line
+import FontFaceObserver from "fontfaceobserver";
 import MagicLineMenu from '../src';
 import Input from './Input';
 
@@ -40,7 +42,16 @@ class App extends Component {
     lineColor: '#000000',
     duration: 500,
     easing: 'linear',
+    fontIsLoaded: false,
   };
+
+  componentDidMount() {
+    this.font
+      .load()
+      .then(() => this.setState(state => ({ ...state, fontIsLoaded: true })));
+  }
+
+  font = new FontFaceObserver('Roboto');
 
   render() {
     return (
@@ -48,25 +59,27 @@ class App extends Component {
         <div>
           <h1 style={headerStyle}>
             <span role="img" aria-label="Man Mage">
-              🧙‍♂️
+              🧙‍
             </span>
             React Magic Line Menu
           </h1>
-          <MagicLineMenu
-            active={this.state.active}
-            onItemClick={i => this.setState({ active: i })}
-            lineHeight={this.state.lineHeight}
-            lineColor={this.state.lineColor}
-            duration={this.state.duration}
-            easing={this.state.easing}
-          >
-            <div style={itemStyle}>HOME</div>
-            <div style={itemStyle}>REACT</div>
-            <div style={itemStyle}>MAGIC</div>
-            <div style={itemStyle}>LINE</div>
-            <div style={itemStyle}>MENU</div>
-            <div style={itemStyle}>LONG NAME ITEM</div>
-          </MagicLineMenu>
+          {this.state.fontIsLoaded && (
+            <MagicLineMenu
+              active={this.state.active}
+              onItemClick={i => this.setState({ active: i })}
+              lineHeight={this.state.lineHeight}
+              lineColor={this.state.lineColor}
+              duration={this.state.duration}
+              easing={this.state.easing}
+            >
+              <div style={itemStyle}>HOME</div>
+              <div style={itemStyle}>REACT</div>
+              <div style={itemStyle}>MAGIC</div>
+              <div style={itemStyle}>LINE</div>
+              <div style={itemStyle}>MENU</div>
+              <div style={itemStyle}>LONG NAME ITEM</div>
+            </MagicLineMenu>
+          )}
         </div>
         <div style={propsStyle}>
           <Input
