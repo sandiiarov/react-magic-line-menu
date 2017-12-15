@@ -30,46 +30,39 @@ if (prod) {
 const plugins = [
   {
     resolveId(importee) {
-      if (importee === processShim) return importee;
+      if (importee === processShim) {
+        return importee;
+      }
+
       return null;
     },
     load(id) {
-      if (id === processShim) return 'export default { argv: [], env: {} }';
+      if (id === processShim) {
+        return 'export default { argv: [], env: {} }';
+      }
+
       return null;
     },
   },
   flow(),
   nodeResolve(),
-  prod &&
-    replace({
-      'process.env.NODE_ENV': JSON.stringify(
-        prod ? 'production' : 'development'
-      ),
-    }),
-  prod &&
-    inject({
-      process: processShim,
-    }),
-  babel({
-    babelrc: true,
-  }),
-  commonjs({
-    ignoreGlobal: true,
-  }),
-].filter(Boolean);
-
-if (prod) {
-  plugins.push(minify());
-}
+  replace({ 'process.env.NODE_ENV': JSON.stringify('production') }),
+  inject({ process: processShim }),
+  babel({ babelrc: true }),
+  commonjs({ ignoreGlobal: true }),
+  minify(),
+];
 
 export default {
   input: 'src/index.js',
-  external: ['react'].concat(esbundle ? Object.keys(pkg.dependencies) : []),
+  external: ['react', 'animejs'].concat(
+    esbundle ? Object.keys(pkg.dependencies) : []
+  ),
   exports: 'named',
   output: {
     ...output,
     name: 'react-magic-line-menu',
   },
   plugins,
-  globals: { react: 'React' },
+  globals: { react: 'React', animejs: 'anime' },
 };
