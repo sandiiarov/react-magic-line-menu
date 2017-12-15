@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component, Children, cloneElement } from 'react';
-import animate from '../vendor/animateplus';
+import anime from 'animejs';
 
 type Props = {
   children: React$Node,
@@ -128,23 +128,21 @@ class MagicLineMenu extends Component<Props> {
     endTranslateX: number,
     endScaleX: number
   ) => {
-    animate({
-      elements: this.lineNode,
-      duration: (this.props.duration || 500) / 2,
+    const timeline = anime.timeline({
+      targets: this.lineNode,
+      duration: this.props.duration || 500,
       easing: this.props.easing || 'linear',
-      transform: [
-        `translateX(${defaultTranslateX}px) scaleX(${defaultScaleX})`,
-        `translateX(${defaultTranslateX}px) scaleX(${startScaleX})`,
-      ],
-    }).then(options =>
-      animate({
-        ...options,
-        transform: [
-          `translateX(${defaultTranslateX}px) scaleX(${startScaleX})`,
-          `translateX(${endTranslateX}px) scaleX(${endScaleX})`,
-        ],
+    });
+
+    timeline
+      .add({
+        translateX: [defaultTranslateX, defaultTranslateX],
+        scaleX: [defaultScaleX, startScaleX],
       })
-    );
+      .add({
+        translateX: [defaultTranslateX, endTranslateX],
+        scaleX: [startScaleX, endScaleX],
+      });
   };
 
   menuValues: Value = { left: 0, right: 0, width: 0 };
