@@ -39,6 +39,7 @@
     "type": "git",
     "url": "https://github.com/sandiiarov/react-magic-line-menu.git"
   },
+  "files": ["dist", "lib", "src"],
   "lint-staged": {
     "*.js": ["prettier-eslint --write \"src/**/*.js\"", "git add"]
   },
